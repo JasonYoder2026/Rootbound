@@ -24,4 +24,17 @@ add_executable(Rootbound
     src/main.cpp
 )
 
+
+set_target_properties(Rootbound PROPERTIES
+    WIN32_EXECUTABLE "$<CONFIG:Release>"
+)
+
 target_link_libraries(Rootbound PRIVATE raylib)
+
+
+if(WIN32 AND MSVC)
+    target_link_options(Rootbound PRIVATE
+        "$<$<CONFIG:Release>:/SUBSYSTEM:WINDOWS>"
+        "$<$<CONFIG:Release>:/ENTRY:mainCRTStartup>"
+    )
+endif()
